@@ -44,6 +44,8 @@ const LeadSchema = new mongoose.Schema({
       default: null,
     },
   },
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model('leads', LeadSchema);
