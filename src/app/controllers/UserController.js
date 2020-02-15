@@ -40,8 +40,6 @@ class UserController {
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
-      mail: Yup.string()
-        .email(),
       oldPassword: Yup.string()
         .min(6),
       password: Yup.string()
@@ -61,7 +59,21 @@ class UserController {
       return res.status(401).json({ error: 'Validation fails' });
     }
 
-    return res.json();
+    const { oldPassword } = req.body;
+
+    const user = await User.findByPk(req.userId);
+
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'Password not match' });
+    }
+
+    const { id, name, permissions } = await user.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      permissions,
+    });
   }
 }
 
