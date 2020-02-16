@@ -4,6 +4,14 @@ const Data = require('../schemas/Data');
 const User = require('../models/User');
 
 class DataController {
+  async index(req, res) {
+    const { page } = req.query;
+
+    const data = await Data.find({}).skip((page - 1) * 20).limit(20);
+
+    return res.json(data);
+  }
+
   async show(req, res) {
     const schema = Yup.object().shape({
       _id: Yup.string(),
@@ -30,10 +38,10 @@ class DataController {
       return res.status(401).json({ error: 'Validation fails' });
     }
 
-    const { userId, input, output } = req.body;
+    const { input, output } = req.body;
 
     const data = await Data.create({
-      userId,
+      user_id: req.userId,
       input,
       output,
     });

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const LeadSchema = new mongoose.Schema({
+  user_id: {
+    type: String,
+    allowNull: false,
+  },
   input: {
     type: String,
     default: null,
