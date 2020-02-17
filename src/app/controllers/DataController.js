@@ -31,8 +31,7 @@ class DataController {
 
   async store(req, res) {
     const schema = Yup.object().shape({
-      input: Yup.string()
-        .required(),
+      input: Yup.string(),
       output: Yup.string(),
     });
 

@@ -1,12 +1,10 @@
 const Data = require('../schemas/Data');
+const NaturalLaguage = require('../services/NaturaLaguage.service')
 
 class QuestionController {
   async show(req, res) {
     this.result = null;
 
-    if (!req.query.input) {
-      req.query.input = '';
-    }
     const dataObj = {
       input: req.query.input,
       client_id: req.client_id,
@@ -17,7 +15,7 @@ class QuestionController {
     if (!data) {
       this.result = await Data.find({ client_id: req.client_id });
 
-      data = nlp(dataObj.input, this.result);
+      data = NaturalLaguage.process(dataObj.input, this.result);
     }
     return res.json(data);
   }
