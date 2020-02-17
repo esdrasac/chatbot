@@ -7,7 +7,7 @@ class DataController {
   async index(req, res) {
     const { page } = req.query;
 
-    const data = await Data.find({}).skip((page - 1) * 20).limit(20);
+    const data = await Data.find({ client_id: req.client_id }).skip((page - 1) * 20).limit(20);
 
     return res.json(data);
   }
@@ -22,6 +22,8 @@ class DataController {
     if (!(schema.isValid(req.body))) {
       return res.status(401).json({ error: 'Validation Fails' });
     }
+
+    req.body.client_id = req.client_id;
 
     const data = await Data.find(req.body);
     return res.json(data);
@@ -41,6 +43,7 @@ class DataController {
     const { input, output } = req.body;
 
     const data = await Data.create({
+      client_id: req.client_id,
       user_id: req.userId,
       input,
       output,
@@ -65,6 +68,10 @@ class DataController {
       return res.status(401).json({ error: 'Cannot find data' });
     }
 
+    if (data.client_id !== req.client_id) {
+      return res.status(401).json('You do not have permission');
+    }
+
     await data.updateOne(req.body);
 
 
@@ -76,12 +83,17 @@ class DataController {
 
     const { permissions } = user;
 
-    if (permissions !== 'admin') {
+    const data = await Data.findById(req.params.id);
+
+    if (!data) {
+      res.status(401).json({ error: 'Can not find data' });
+    }
+
+    if (permissions !== 'admin' || data.client_id !== req.client_id) {
       return res.status().json({ error: 'You do not have permission to delete' });
     }
 
-    const data = await Data.findByIdAndDelete(req.params.id);
-
+    await Data.delete(req.params.id);
 
     return res.json(data);
   }

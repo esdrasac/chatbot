@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const LeadSchema = new mongoose.Schema({
+  client_id: {
+    type: String,
+    allowNull: false,
+  },
   user_id: {
     type: String,
     allowNull: false,
