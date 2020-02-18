@@ -1,8 +1,8 @@
-require('dotenv').config({ encoding: 'utf8' });
+require('dotenv').config({ path: '.env', encoding: 'utf8' });
 
 
 const app = require('./app');
 
-app.listen(7979, () => {
+app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}`);
 });

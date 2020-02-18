@@ -17,6 +17,7 @@ app.get('/input', QuestionController.show);
 
 
 app.use(authMiddleware);
+// User Controller
 app.put('/users', UserController.update);
 
 // Data Controller

@@ -44,7 +44,7 @@ class NaturalLaguage {
       let words = 0;
 
       for (let x = 0; x < tokenizationQuestion.length; x++) {
-        if (tokenizationInput.indexOf(tokenizationQuestion[x])) {
+        if (tokenizationInput.indexOf(tokenizationQuestion[x]) >= 0) {
           words++;
         }
       }
