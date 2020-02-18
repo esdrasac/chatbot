@@ -11,7 +11,7 @@ const LeadSchema = new mongoose.Schema({
   },
   input: {
     type: String,
-    default: null,
+    default: '',
   },
   output: {
     type: String,

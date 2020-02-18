@@ -12,6 +12,10 @@ const QuestionController = require('./app/controllers/QuestionController');
 app.post('/users', UserController.store);
 app.post('/sessions', SessionController.store);
 
+// Question Controller
+app.get('/input', QuestionController.show);
+
+
 app.use(authMiddleware);
 app.put('/users', UserController.update);
 
@@ -21,9 +25,6 @@ app.post('/data', DataController.store);
 app.post('/find-data', DataController.show);
 app.put('/data/:id', DataController.update);
 app.delete('/data/:id', DataController.delete);
-
-// Input Controller
-app.get('/input', QuestionController.show);
 
 
 app.post('/get-lead', LeadController.store);

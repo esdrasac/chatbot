@@ -21,7 +21,11 @@ class DataBase {
   }
 
   mongo() {
-    this.mongoConnection = db.connect('mongodb://localhost:27017/chatbot', mongoConfig);
+    this.mongoConnection = db.connect(
+      'mongodb://localhost:27017/chatbot',
+      // 'mongodb+srv://chatbot:jsKpdhZFi1NL0S6V@cluster0-7kvzw.mongodb.net/chatbot?retryWrites=true&w=majority',
+      mongoConfig,
+    );
   }
 }
 
