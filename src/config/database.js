@@ -1,10 +1,10 @@
 module.exports = {
   dialect: 'mysql',
-  host: 'mysql669.umbler.com',
+  host: process.env.MYSQL_HOST,
   port: 41890,
-  username: 'admin-chatbot',
-  password: 'ed0b0fad0587026770e2d4a7cfc207af',
-  database: 'chatbot',
+  username: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   define: {
     timestamps: true,
     underscored: true,
