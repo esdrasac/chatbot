@@ -31,6 +31,7 @@ class DataController {
 
   async store(req, res) {
     const schema = Yup.object().shape({
+      code_relation: Yup.string(),
       input: Yup.string(),
       output: Yup.string(),
     });
@@ -39,10 +40,11 @@ class DataController {
       return res.status(401).json({ error: 'Validation fails' });
     }
 
-    const { input, output } = req.body;
+    const { input, output, code_relation } = req.body;
 
     const data = await Data.create({
       client_id: req.client_id,
+      code_relation,
       user_id: req.userId,
       input,
       output,

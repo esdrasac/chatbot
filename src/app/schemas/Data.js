@@ -5,6 +5,9 @@ const LeadSchema = new mongoose.Schema({
     type: String,
     allowNull: false,
   },
+  code_relation: {
+    type: String,
+  },
   user_id: {
     type: String,
     allowNull: false,

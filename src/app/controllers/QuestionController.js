@@ -6,15 +6,24 @@ class QuestionController {
   async show(req, res) {
     let result = 0;
 
+    const { input, code_before } = req.query;
+
     const dataObj = {
-      input: req.query.input,
       client_id: authConfig.client_id,
+      input,
     };
 
     let data = await Data.find(dataObj);
 
-    if (data.length === 0) {
-      result = await Data.find({ client_id: authConfig.client_id });
+    if (!data.length) {
+      if (req.query.code_before) {
+        result = await Data.find({
+          client_id: authConfig.client_id,
+          code_relation: code_before,
+        });
+      } else {
+        result = await Data.find({ client_id: authConfig.client_id });
+      }
 
       data = NaturalLaguage.process(dataObj.input, result);
     }
