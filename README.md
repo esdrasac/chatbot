@@ -12,12 +12,13 @@ We recommend using Yarn, but you can use npm
 
   * First you need to have the [Docker](https://hub.docker.com/_/node/) installed on your computer;
   * You will need to run the docker images:
-    **MySQL**
+  
+    **MySQL:**
     ```
     docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=yourpassword -p 3306:3306 -d mysql:latest 
     ``` 
 
-    **MongoDB**
+    **MongoDB:**
     ```
     docker run --name mongodb -p 27017:27017 -d -t mongo  
     ```
