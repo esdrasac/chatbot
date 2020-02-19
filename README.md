@@ -48,11 +48,6 @@ We recommend using Yarn, but you can use npm
     yarn starthttps://github.com/esdrasac/chatbot/blob/master/LICENSE
     ```
 
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## :hammer: Built With
 
 * [NodeJS](https://nodejs.org/en/docs/) - Runtime
@@ -73,7 +68,7 @@ Please read [CONTRIBUTING.md](https://github.com/esdrasac/chatbot/blob/master/CO
 
 * **Esdras Aguilar** - *Initial work* - [esdrasac](https://github.com/esdrasac)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/esdrasac/chatbot/blob/master/CONTRIBUTORS.md) who participated in this project.
 
 ## License
 
