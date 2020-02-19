@@ -24,11 +24,11 @@ We recommend using Yarn, but you can use npm
   * In mongodb create a database with the name "chatbot";
   * You need to install the dependencies:
   
-    **Using NPM**
+    **Using NPM:**
     ```
     npm install
     ```
-    **Using Yarn**
+    **Using Yarn:**
     ```
     yarn install
     ```
@@ -38,13 +38,13 @@ We recommend using Yarn, but you can use npm
     ```
   * Start the application:
   
-    **Using NPM**
+    **Using NPM:**
     ```
     npm start
     ```
-    **Using Yarn**
+    **Using Yarn:**
     ```
-    yarn start
+    yarn starthttps://github.com/esdrasac/chatbot/blob/master/LICENSE
     ```
 
 
@@ -62,7 +62,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/esdrasac/chatbot/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -76,7 +76,7 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/esdrasac/chatbot/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
