@@ -11,6 +11,7 @@ Follow this instructions to run the project
 We recommend using Yarn, but you can use npm
 
   * First you need to have the [Docker](https://hub.docker.com/_/node/) installed on your computer;
+  
   * You will need to run the docker images:
   
     **MySQL:**
@@ -23,6 +24,7 @@ We recommend using Yarn, but you can use npm
     docker run --name mongodb -p 27017:27017 -d -t mongo  
     ```
   * In mongodb create a database with the name "chatbot";
+  
   * You need to install the dependencies:
   
     **Using NPM:**
@@ -33,6 +35,8 @@ We recommend using Yarn, but you can use npm
     ```
     yarn install
     ```
+  * Rename the file ".env.default" to ".env" and setup enviroment variables to connect to the MySQL and port server;
+  
   * Create the databases using:
     ```
     npx sequelize db:migrate
@@ -50,11 +54,11 @@ We recommend using Yarn, but you can use npm
 
 ## :hammer: Built With
 
-* [NodeJS](https://nodejs.org/en/docs/) - Runtime
-* [Docker](https://hub.docker.com/_/node/) - Conteiners
-* [ExpresJS](https://expressjs.com/) - Web Framework
-* [MySql2](https://www.npmjs.com/package/mysql2) - Used to manage SQL data
-* [MongooseJS](https://mongoosejs.com/) - Used to manage NoSQL data(ODM)
+* [NodeJS](https://nodejs.org/en/docs/) - Runtime;
+* [Docker](https://hub.docker.com/_/node/) - Conteiners;
+* [ExpresJS](https://expressjs.com/) - Web Framework;
+* [MySql2](https://www.npmjs.com/package/mysql2) - Used to manage SQL data;
+* [MongooseJS](https://mongoosejs.com/) - Used to manage NoSQL data(ODM);
 
 ## Contributing
 
