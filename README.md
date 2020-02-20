@@ -78,4 +78,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 * To God for his infinite goodness
 * To my college teachers
-* To my parants
+* To my parents
