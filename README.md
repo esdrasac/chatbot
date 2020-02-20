@@ -45,7 +45,7 @@ We recommend using Yarn, but you can use npm
     ```
     **Using Yarn:**
     ```
-    yarn starthttps://github.com/esdrasac/chatbot/blob/master/LICENSE
+    yarn start
     ```
 
 ## :hammer: Built With
