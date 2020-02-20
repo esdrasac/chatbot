@@ -4,7 +4,7 @@ This chatbot has been developed and improved so that it looks more and more like
 
 ## :vertical_traffic_light: Getting Started
 
-Essas instruções fornecerão uma cópia do projeto em execução na sua máquina local para fins de desenvolvimento.
+Follow this instructions to run the project
 
 ### :minidisc: Installing
 
