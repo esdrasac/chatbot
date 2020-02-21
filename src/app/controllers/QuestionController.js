@@ -4,7 +4,7 @@ const NaturalLaguage = require('../services/NaturaLaguage.service');
 
 class QuestionController {
   async show(req, res) {
-    let result = 0;
+    let result;
 
     const { input, code_before } = req.query;
 
@@ -21,6 +21,10 @@ class QuestionController {
           client_id: authConfig.client_id,
           code_relation: code_before,
         });
+        if (!result) {
+          result = await Data.find({ client_id: authConfig.client_id });
+          data = NaturalLaguage.process(dataObj.input, result);
+        }
       } else {
         result = await Data.find({ client_id: authConfig.client_id });
       }
