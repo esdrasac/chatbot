@@ -1,8 +1,17 @@
-class NaturalLaguage {
+class NaturalLanguage {
   process(question, array) {
     const originalQuestion = question.toString().trim();
     let findInput = 0;
     let findIndex = 0;
+
+    const documents = getDocuments(originalQuestion);
+
+    if (documents) {
+      return [{
+        input: originalQuestion,
+        ouput: 'Ok! Entendido...',
+      }];
+    }
 
 
     for (let i = 0; i < array.length; i++) {
@@ -72,4 +81,4 @@ class NaturalLaguage {
   }
 }
 
-module.exports = new NaturalLaguage();
+module.exports = new NaturalLanguage();
