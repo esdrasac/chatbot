@@ -29,7 +29,7 @@ class QuestionController {
         result = await Data.find({ client_id: authConfig.client_id });
       }
 
-      data = NaturalLanguage.process(dataObj.input, result);
+      data = await NaturalLanguage.process(dataObj.input, result);
     }
     return res.json(data);
   }
