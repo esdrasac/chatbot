@@ -1,7 +1,8 @@
 const _ = require('lodash');
-const yup = require('yup');
+const CEP = require('cep-promise');
 const axios = require('axios');
 const CPF = require('@fnando/cpf/commonjs');
+const CNPJ = require('@fnando/cnpj/commonjs');
 
 const Lead = require('../schemas/Lead');
 
@@ -10,21 +11,26 @@ class Validation {
     this.question = question.toString().trim();
     const documents = {};
 
-    const questionTokens = question.split('');
+    const questionTokens = question.split(' ');
 
     for (let i = 0; i < questionTokens.length; i++) {
       const word = questionTokens[i].toString().trim();
 
       if (word.length > 1) {
         if (!documents.email) documents.email = this.isValidEmail(word);
-        if (!documents.mobile_Phone) documents.mobile_Phone = this.isValidMobilePhone(word);
+        if (!documents.mobile_phone) documents.mobile_phone = this.isValidMobilePhone(word);
         if (!documents.phone) documents.phone = this.isValidPhone(word);
-        if (!documents.address) documents.address = this.isValidZipcode(word);
+        if (!documents.cep) documents.cep = this.isValidCep(word);
         if (!documents.cpf) documents.cpf = this.isValidCpf(word);
         if (!documents.cnpj) documents.cnpj = this.isValidCnpj(word);
       }
     }
 
+    if (documents.cep) {
+      documents.address = await this.searchCep(documents.cep);
+    }
+
+    console.log(documents);
     if (_.isEmpty(documents)) {
       return false;
     }
@@ -35,33 +41,36 @@ class Validation {
     return true;
   }
 
-  async isValidEmail(email) {
-    const schema = yup.string()
-      .email();
+  isValidEmail(email) {
+    this.email = email.replace(/[^0-9a-zA-Z@.-_]/g, '');
 
-    if (!(await schema.isValid(email))) {
-      return null;
+    if (this.email < 7) {
+      return '';
     }
 
-    return email;
+    if (this.email.indexOf('@') > 0 && (this.email.indexOf('.') > 0)) {
+      return this.email;
+    }
+
+    return '';
   }
 
-  isValidMobilePhone(mobile_Phone) {
-    this.mobile_Phone = mobile_Phone.replace(/[^0-9]/g);
+  isValidMobilePhone(mobile_phone) {
+    this.mobile_phone = mobile_phone.replace(/[^0-9]/g);
 
-    if (this.mobile_Phone.indexOf('55' === 0)) {
-      this.mobile_Phone = this.mobile_Phone.replace('55', '');
+    if (this.mobile_phone.indexOf('55' === 0)) {
+      this.mobile_phone = this.mobile_phone.replace('55', '');
     }
 
-    if (this.isValidCpf(this.mobile_Phone)) {
-      return null;
+    if (this.isValidCpf(this.mobile_phone)) {
+      return '';
     }
 
-    if (this.mobile_Phone.length === 11 && this.mobile_Phone.indexOf('9') === 2) {
-      return this.mobile_Phone;
+    if (this.mobile_phone.length === 11 && this.mobile_phone.indexOf('9') === 2) {
+      return this.mobile_phone;
     }
 
-    return null;
+    return '';
   }
 
   isValidPhone(phone) {
@@ -75,37 +84,53 @@ class Validation {
       return this.phone;
     }
 
-    return null;
+    return '';
   }
 
-  isValidZipcode(zipcode) {
-    this.zipcode = zipcode.replace(/[^0-9]/g);
-
-    if (this.zipcode.length === 8) {
-      axios.get(`viacep.com.br/ws/${this.zipcode}/json/`)
-        .then((res) => {
-          if (res.data.erro) {
-            return null;
-          }
-          return res.data;
-        });
+  isValidCep(cep) {
+    this.cep = cep.replace(/[^0-9]/g);
+    if (this.cep.length === 8) {
+      return this.cep;
     }
 
-    return null;
+    return '';
+  }
+
+  async searchCep(cep) {
+    this.cep = cep.replace(/[^0-9]/g);
+
+    if (this.cep.length === 8) {
+      this.res = await CEP(this.cep)
+        .catch(console.log);
+
+      if (this.res.errors) {
+        return '';
+      }
+
+      return this.res;
+    }
+
+    return '';
   }
 
   isValidCpf(cpf) {
     this.cpf = cpf.replace(/\D/g, '');
 
     if (!CPF.isValid(this.cpf)) {
-      return null;
+      return '';
     }
 
     return this.cpf;
   }
 
-  isValidCnpj() {
+  isValidCnpj(cnpj) {
+    this.cnpj = cnpj.replace(/\D/g, '');
 
+    if (!CNPJ.isValid(this.cnpj)) {
+      return '';
+    }
+
+    return this.cnpj;
   }
 }
 
