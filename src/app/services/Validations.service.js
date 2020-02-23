@@ -1,6 +1,5 @@
 const _ = require('lodash');
 const CEP = require('cep-promise');
-const axios = require('axios');
 const CPF = require('@fnando/cpf/commonjs');
 const CNPJ = require('@fnando/cnpj/commonjs');
 
@@ -10,19 +9,28 @@ class Validation {
   async getDocuments(question = '') {
     this.question = question.toString().trim();
     const documents = {};
+    const response = {};
 
     const questionTokens = question.split(' ');
 
     for (let i = 0; i < questionTokens.length; i++) {
       const word = questionTokens[i].toString().trim();
 
+      const email = this.isValidEmail(word);
+      const mPhone = this.isValidMobilePhone(word);
+      const phone = this.isValidPhone(word);
+      const cep = this.isValidCep(word);
+      const cpf = this.isValidCpf(word);
+      const cnpj = this.isValidCnpj(word);
+
+
       if (word.length > 1) {
-        if (!documents.email) documents.email = this.isValidEmail(word);
-        if (!documents.mobile_phone) documents.mobile_phone = this.isValidMobilePhone(word);
-        if (!documents.phone) documents.phone = this.isValidPhone(word);
-        if (!documents.cep) documents.cep = this.isValidCep(word);
-        if (!documents.cpf) documents.cpf = this.isValidCpf(word);
-        if (!documents.cnpj) documents.cnpj = this.isValidCnpj(word);
+        if (!documents.email && email !== null) documents.email = this.isValidEmail(word);
+        if (!documents.mobile_phone && mPhone !== null) documents.mobile_phone = this.isValidMobilePhone(word);
+        if (!documents.phone && phone !== null) documents.phone = this.isValidPhone(word);
+        if (!documents.cep && cep !== null) documents.cep = this.isValidCep(word);
+        if (!documents.cpf && cpf !== null) documents.cpf = this.isValidCpf(word);
+        if (!documents.cnpj && cnpj !== null) documents.cnpj = this.isValidCnpj(word);
       }
     }
 
@@ -30,7 +38,6 @@ class Validation {
       documents.address = await this.searchCep(documents.cep);
     }
 
-    console.log(documents);
     if (_.isEmpty(documents)) {
       return false;
     }
@@ -45,14 +52,14 @@ class Validation {
     this.email = email.replace(/[^0-9a-zA-Z@.-_]/g, '');
 
     if (this.email < 7) {
-      return '';
+      return null;
     }
 
     if (this.email.indexOf('@') > 0 && (this.email.indexOf('.') > 0)) {
       return this.email;
     }
 
-    return '';
+    return null;
   }
 
   isValidMobilePhone(mobile_phone) {
@@ -63,14 +70,14 @@ class Validation {
     }
 
     if (this.isValidCpf(this.mobile_phone)) {
-      return '';
+      return null;
     }
 
     if (this.mobile_phone.length === 11 && this.mobile_phone.indexOf('9') === 2) {
       return this.mobile_phone;
     }
 
-    return '';
+    return null;
   }
 
   isValidPhone(phone) {
@@ -84,7 +91,7 @@ class Validation {
       return this.phone;
     }
 
-    return '';
+    return null;
   }
 
   isValidCep(cep) {
@@ -93,7 +100,7 @@ class Validation {
       return this.cep;
     }
 
-    return '';
+    return null;
   }
 
   async searchCep(cep) {
@@ -104,20 +111,20 @@ class Validation {
         .catch(console.log);
 
       if (this.res.errors) {
-        return '';
+        return null;
       }
 
       return this.res;
     }
 
-    return '';
+    return null;
   }
 
   isValidCpf(cpf) {
     this.cpf = cpf.replace(/\D/g, '');
 
     if (!CPF.isValid(this.cpf)) {
-      return '';
+      return null;
     }
 
     return this.cpf;
@@ -127,7 +134,7 @@ class Validation {
     this.cnpj = cnpj.replace(/\D/g, '');
 
     if (!CNPJ.isValid(this.cnpj)) {
-      return '';
+      return null;
     }
 
     return this.cnpj;
