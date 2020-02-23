@@ -22,7 +22,7 @@ class DataBase {
 
   mongo() {
     this.mongoConnection = db.connect(
-      process.env.MONGO_STRING_CONNECTION,
+      process.env.MONGO_STRING_DEV,
       mongoConfig,
     );
   }

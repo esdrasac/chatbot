@@ -1,14 +1,16 @@
 const Validations = require('./Validations.service');
 
 class NaturalLanguage {
-  process(question, array) {
+  async process(question, array) {
     const originalQuestion = question.toString().trim();
     let findInput = 0;
     let findIndex = 0;
 
-    const documents = Validations.getDocuments(originalQuestion);
+    const documents = await Validations.getDocuments(originalQuestion);
 
-    if (documents) {
+    console.log(documents);
+
+    if (documents === true) {
       return [{
         input: originalQuestion,
         ouput: 'Ok! Entendido...',
