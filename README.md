@@ -35,7 +35,7 @@ We recommend using Yarn, but you can use npm
     ```
     yarn install
     ```
-  * Rename the file ".env.default" to ".env" and setup enviroment variables to connect to the MySQL and port server;
+  * Rename the file ".env.default" to ".env" and setup enviroment variables to connect to the MySQL, MongoDb and config port server;
   
   * Create the databases using:
     ```
