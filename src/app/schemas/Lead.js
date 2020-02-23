@@ -31,7 +31,7 @@ const LeadSchema = new mongoose.Schema({
   },
 
   address: {
-    zipcode: {
+    cep: {
       type: String,
       default: null,
     },
