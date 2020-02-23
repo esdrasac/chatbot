@@ -8,8 +8,6 @@ class NaturalLanguage {
 
     const documents = await Validations.getDocuments(originalQuestion);
 
-    console.log(documents);
-
     if (documents === true) {
       return [{
         input: originalQuestion,
