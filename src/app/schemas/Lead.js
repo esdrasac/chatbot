@@ -5,7 +5,15 @@ const LeadSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  age: {
+    type: String,
+    default: null,
+  },
   email: {
+    type: String,
+    default: null,
+  },
+  mobile_phone: {
     type: String,
     default: null,
   },
@@ -17,9 +25,13 @@ const LeadSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  cnpj: {
+    type: String,
+    default: null,
+  },
 
   address: {
-    zipcode: {
+    cep: {
       type: String,
       default: null,
     },

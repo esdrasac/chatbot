@@ -1,6 +1,6 @@
 const Data = require('../schemas/Data');
 const authConfig = require('../../config/auth');
-const NaturalLaguage = require('../services/NaturaLaguage.service');
+const NaturalLanguage = require('../services/NaturaLanguage.service');
 
 class QuestionController {
   async show(req, res) {
@@ -23,13 +23,13 @@ class QuestionController {
         });
         if (!result) {
           result = await Data.find({ client_id: authConfig.client_id });
-          data = NaturalLaguage.process(dataObj.input, result);
+          data = NaturalLanguage.process(dataObj.input, result);
         }
       } else {
         result = await Data.find({ client_id: authConfig.client_id });
       }
 
-      data = NaturalLaguage.process(dataObj.input, result);
+      data = await NaturalLanguage.process(dataObj.input, result);
     }
     return res.json(data);
   }
