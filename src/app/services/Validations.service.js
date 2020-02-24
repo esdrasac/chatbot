@@ -9,7 +9,6 @@ class Validation {
   async getDocuments(question = '') {
     this.question = question.toString().trim();
     const documents = {};
-    const response = {};
 
     const questionTokens = question.split(' ');
 
@@ -25,12 +24,24 @@ class Validation {
 
 
       if (word.length > 1) {
-        if (!documents.email && email !== null) documents.email = this.isValidEmail(word);
-        if (!documents.mobile_phone && mPhone !== null) documents.mobile_phone = this.isValidMobilePhone(word);
-        if (!documents.phone && phone !== null) documents.phone = this.isValidPhone(word);
-        if (!documents.cep && cep !== null) documents.cep = this.isValidCep(word);
-        if (!documents.cpf && cpf !== null) documents.cpf = this.isValidCpf(word);
-        if (!documents.cnpj && cnpj !== null) documents.cnpj = this.isValidCnpj(word);
+        if (!documents.email && email !== null) {
+          documents.email = this.isValidEmail(word);
+        }
+        if (!documents.mobile_phone && mPhone !== null) {
+          documents.mobile_phone = this.isValidMobilePhone(word);
+        }
+        if (!documents.phone && phone !== null) {
+          documents.phone = this.isValidPhone(word);
+        }
+        if (!documents.cep && cep !== null) {
+          documents.cep = this.isValidCep(word);
+        }
+        if (!documents.cpf && cpf !== null) {
+          documents.cpf = this.isValidCpf(word);
+        }
+        if (!documents.cnpj && cnpj !== null) {
+          documents.cnpj = this.isValidCnpj(word);
+        }
       }
     }
 
